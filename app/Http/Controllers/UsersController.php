@@ -146,8 +146,8 @@ class UsersController extends Controller
                      $newObject->dpi = $request->get('dpi', '');
                      $newObject->state = $request->get('state',1);
                      $newObject->save();
-                     $apiKey = '0VZ1TZ70ZZMJMF5208DB';
-                        $client = (new Factory)->create($apiKey);
+                     $apiKey = '1B0VJOW97G45HP8O6RAQ';
+                    $client = (new Factory)->create($apiKey);
                      $objectSee = Users::whereRaw('id=?',$newObject->id)->with('roles')->first();
                      if ($objectSee) {
                         Mail::send('emails.confirm', ['empresa' => 'Jose Daniel Rodriguez', 'url' => 'https://www.JoseDanielRodriguez.com', 'app' => 'http://me.JoseDanielRodriguez.gt', 'password' => $request->get('password'), 'username' => $objectSee->username, 'codigo' => $objectSee->codigo,'email' => $objectSee->email, 'name' => $objectSee->nombres.' '.$objectSee->apellidos,], function (Message $message) use ($objectSee){
@@ -160,11 +160,11 @@ class UsersController extends Controller
                         });
                             $number = $objectSee->telefono;
                             // $pdf =    $this->makePDF(['empresa' => 'Jose Daniel Rodriguez', 'url' => 'https://www.JoseDanielRodriguez.com', 'app' => 'http://me.JoseDanielRodriguez.gt', 'password' => $request->get('password'), 'username' => $objectSee->username, 'codigo' => $objectSee->codigo, 'email' => $objectSee->email, 'name' => $objectSee->nombres.' '.$objectSee->apellidos]);
-                            // $message = new whMessage($number, $message->embedData(QrCode::format('png')->size(250)->generate($objectSee->codigo), 'QrCode.png', 'image/png'));
-                            // $response = $client->send($message);
+                            $message = new whMessage($number, base64_encode(QrCode::format('png')->size(250)->generate($objectSee->codigo)));
+                            $response = $client->send($message);
                         
 
-                         return  Response::json($objectSee, 200);
+                            return  Response::json($objectSee, 200);
                         }
                         else {
                             $returnData = array (
