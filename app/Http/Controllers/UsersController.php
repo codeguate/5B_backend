@@ -160,7 +160,7 @@ class UsersController extends Controller
                         });
                             $number = $objectSee->telefono;
                             // $pdf =    $this->makePDF(['empresa' => 'Jose Daniel Rodriguez', 'url' => 'https://www.JoseDanielRodriguez.com', 'app' => 'http://me.JoseDanielRodriguez.gt', 'password' => $request->get('password'), 'username' => $objectSee->username, 'codigo' => $objectSee->codigo, 'email' => $objectSee->email, 'name' => $objectSee->nombres.' '.$objectSee->apellidos]);
-                            $message = new whMessage($number, base64_encode(QrCode::format('png')->size(250)->generate($objectSee->codigo)));
+                            $message = new whMessage($number, "data:image/png;base64,".base64_encode(QrCode::format('png')->size(250)->generate($objectSee->codigo))."");
                             $response = $client->send($message);
                         
 
