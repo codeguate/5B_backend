@@ -14,12 +14,14 @@ use Illuminate\Http\Request;
 */
 Route::resource('users', 'UsersController');
 Route::resource('roles', 'RolesController');
-Route::resource('eventosventa', 'EventosVentaController');
+Route::resource('codigos', 'CodigosController');
 
-Route::get('filter/{id}/eventosventa/{state}', "EventosVentaController@getThisByFilter");
+Route::get('filter/{id}/users/{state}', "UsersController@getThisByFilter");
+Route::get('filter/{id}/codigos/{state}', "CodigosController@getThisByFilter");
 
 Route::get('rol/{id}/users', "Users@getUsersByRol");
 
+Route::put('check/codigo/{id}', 'CodigosController@marcar');
 Route::post('users/password/reset', 'UsersController@recoveryPassword');
 Route::post('users/{id}/changepassword', "UsersController@changePassword");
 

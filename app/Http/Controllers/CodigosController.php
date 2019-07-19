@@ -54,6 +54,38 @@ class CodigosController extends Controller
         }
     }
     
+
+    public function marcar(Request $request, $id)
+    {
+        $objectUpdate = Codigos::whereRaw('codigo=?',$id)->first();
+        if ($objectUpdate) {
+            try {
+                $objectUpdate->codigo = $request->get('codigo', $objectUpdate->codigo);
+                $objectUpdate->vencimiento = $request->get('vencimiento', $objectUpdate->vencimiento);
+                $objectUpdate->activa = $request->get('activa', $objectUpdate->activa);
+                $objectUpdate->state = $request->get('state', $objectUpdate->state);
+                $objectUpdate->asignado = $request->get('asignado', $objectUpdate->asignado);
+    
+                $objectUpdate->save();
+                return Response::json($objectUpdate, 200);
+            } catch (Exception $e) {
+                $returnData = array (
+                    'status' => 500,
+                    'message' => $e->getMessage()
+                );
+                return Response::json($returnData, 500);
+            }
+        }
+        else {
+            $returnData = array (
+                'status' => 404,
+                'message' => 'No record found'
+            );
+            return Response::json($returnData, 404);
+        }
+    }
+
+
     /**
     * Show the form for creating a new resource.
     *
@@ -73,8 +105,7 @@ class CodigosController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            ''          => 'required',
-            ''          => 'required',
+            'codigo'          => 'required',
         ]);
         if ( $validator->fails() ) {
             $returnData = array (
@@ -87,7 +118,11 @@ class CodigosController extends Controller
         else {
             try {
                 $newObject = new Codigos();
-                $newObject->column            = $request->get('get');
+                $newObject->codigo            = $request->get('codigo');
+                $newObject->vencimiento            = $request->get('vencimiento');
+                $newObject->activa            = $request->get('activa');
+                $newObject->state            = $request->get('state');
+                $newObject->asignado            = $request->get('asignado');
                 $newObject->save();
                 return Response::json($newObject, 200);
     
@@ -147,7 +182,11 @@ class CodigosController extends Controller
         $objectUpdate = Codigos::find($id);
         if ($objectUpdate) {
             try {
-                $objectUpdate->column = $request->get('get', $objectUpdate->column);
+                $objectUpdate->codigo = $request->get('codigo', $objectUpdate->codigo);
+                $objectUpdate->vencimiento = $request->get('vencimiento', $objectUpdate->vencimiento);
+                $objectUpdate->activa = $request->get('activa', $objectUpdate->activa);
+                $objectUpdate->state = $request->get('state', $objectUpdate->state);
+                $objectUpdate->asignado = $request->get('asignado', $objectUpdate->asignado);
     
                 $objectUpdate->save();
                 return Response::json($objectUpdate, 200);
