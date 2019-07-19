@@ -8991,7 +8991,7 @@
       {!! QrCode::size(150)->generate($codigo) !!}
 
     </div>
-    <img src="http://backend.josedanielrodriguez.com/Notificacion_CODE.png" style="height: 100%;" alt="">
+    <img src="https://5bconectate.com/Asset/img/Invitacion.png" style="height: 100%;" alt="">
     
 
   </div>
