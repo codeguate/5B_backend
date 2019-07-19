@@ -33,6 +33,55 @@ class UsersController extends Controller
         return Response::json(Users::with('roles')->get(), 200);
     }
 
+
+    
+    public function getThisByFilter(Request $request, $id,$state)
+    {
+        if($request->get('filter')){
+            switch ($request->get('filter')) {
+                case 'state':{
+                    $objectSee = Users::whereRaw('state=?',[$state])->get();
+                    break;
+                }
+                case 'email':{
+                    $objectSee = Users::whereRaw('email=?',[$state])->get();
+                    break;
+                }
+                case 'telefono':{
+                    $objectSee = Users::whereRaw('telefono=?',[$state])->get();
+                    break;
+                }
+                case 'dpi':{
+                    $objectSee = Users::whereRaw('dpi=?',[$state])->get();
+                    break;
+                }
+                case 'codigo':{
+                    $objectSee = Users::whereRaw('codigo=?',[$state])->get();
+                    break;
+                }
+                default:{
+                    $objectSee = Users::all();
+                    break;
+                }
+    
+            }
+        }else{
+            $objectSee = Users::all();
+        }
+    
+        if ($objectSee) {
+            return Response::json($objectSee, 200);
+    
+        }
+        else {
+            $returnData = array (
+                'status' => 404,
+                'message' => 'No record found'
+            );
+            return Response::json($returnData, 404);
+        }
+    }
+
     public function getUsersByRol($id)
     {
         return Response::json(Users::whereRaw('rol=?',$id)->with('roles')->get(), 200);
@@ -58,9 +107,9 @@ class UsersController extends Controller
      public function store(Request $request)
      {
          $validator = Validator::make($request->all(), [
-             'password'      => 'required|min:3',
              'email'         => 'required|email',
-             'telefono'         => 'required'
+             'dpi'         => 'required',
+             'codigo'         => 'required'
          ]);
          
  
@@ -79,10 +128,11 @@ class UsersController extends Controller
              $user_exists  = Users::whereRaw("username = ?", $user)->count();
              $telefono = $request->get('telefono');
              $telefono_exists  = Users::whereRaw("telefono = ?", $telefono)->count();
-             if($email_exists == 0 && $user_exists == 0 && $telefono_exists == 0){    
+             $dpi = $request->get('dpi');
+             $dpi_exists  = Users::whereRaw("dpi = ?", $dpi)->count();
+             if($email_exists == 0 && $user_exists == 0 && $telefono_exists == 0 && $dpi_exists == 0){    
                      $newObject = new Users();
                      $newObject->username = $request->get('username');
-                     $newObject->password = Hash::make($request->get('password'));
                      $newObject->email = $email;
                      $newObject->nombres = $request->get('nombres');
                      $newObject->apellidos = $request->get('apellidos');
