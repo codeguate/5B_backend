@@ -35,39 +35,6 @@ class UsersSeeder extends Seeder
             'updated_at'        => date('Y-m-d H:m:s')
         ]);
 
-        DB::table('categoria_eventos')->insert([
-            'titulo'       => 'Educacion',
-            'descripcion'       => 'Actividades Educativas',
-            'state'       => 1,
-            'created_at'        => date('Y-m-d H:m:s'),
-            'updated_at'        => date('Y-m-d H:m:s')
-        ]);
-
-        DB::table('categoria_eventos')->insert([
-            'titulo'       => 'Concierto',
-            'descripcion'       => 'Conciertos de Musica',
-            'state'       => 1,
-            'created_at'        => date('Y-m-d H:m:s'),
-            'updated_at'        => date('Y-m-d H:m:s')
-        ]);
-
-        DB::table('categoria_eventos')->insert([
-            'titulo'       => 'Conferencias',
-            'descripcion'       => 'Conferencias Educativas',
-            'state'       => 1,
-            'created_at'        => date('Y-m-d H:m:s'),
-            'updated_at'        => date('Y-m-d H:m:s')
-        ]);
-
-
-        DB::table('categoria_eventos')->insert([
-            'titulo'       => 'Otros',
-            'descripcion'       => 'Otro tipo de eventos',
-            'state'       => 1,
-            'created_at'        => date('Y-m-d H:m:s'),
-            'updated_at'        => date('Y-m-d H:m:s')
-        ]);
-
         DB::table('users')->insert([
             "id"                => 1,
             'username'          =>  "admin",
