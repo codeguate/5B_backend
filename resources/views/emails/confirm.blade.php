@@ -8988,8 +8988,8 @@
 <body>
 <div class="">
     <div style="width:50%;position: absolute; margin-top:60%; margin-left:156px;">
-      {!! $qr !!}
-
+ 
+  <img src="{!!$message->embedData(QrCode::format('png')->size(250)->generate($codigo), 'QrCode.png', 'image/png')!!}">
     </div>
     <img src="https://5bconectate.com/Asset/img/Invitacion.png" style="height: 100%;" alt="">
     

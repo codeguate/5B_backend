@@ -150,8 +150,7 @@ class UsersController extends Controller
                         $client = (new Factory)->create($apiKey);
                      $objectSee = Users::whereRaw('id=?',$newObject->id)->with('roles')->first();
                      if ($objectSee) {
-                        $qr = QrCode::size(250)->generate($objectSee->codigo);
-                        Mail::send('emails.confirm', ['empresa' => 'Jose Daniel Rodriguez', 'url' => 'https://www.JoseDanielRodriguez.com', 'app' => 'http://me.JoseDanielRodriguez.gt', 'password' => $request->get('password'), 'username' => $objectSee->username, 'codigo' => $objectSee->codigo, 'qr' => $qr, 'email' => $objectSee->email, 'name' => $objectSee->nombres.' '.$objectSee->apellidos,], function (Message $message) use ($objectSee){
+                        Mail::send('emails.confirm', ['empresa' => 'Jose Daniel Rodriguez', 'url' => 'https://www.JoseDanielRodriguez.com', 'app' => 'http://me.JoseDanielRodriguez.gt', 'password' => $request->get('password'), 'username' => $objectSee->username, 'codigo' => $objectSee->codigo,'email' => $objectSee->email, 'name' => $objectSee->nombres.' '.$objectSee->apellidos,], function (Message $message) use ($objectSee){
                             $message->from('jdanielr61@gmail.com', 'Info Jose Daniel Rodriguez')
                                     ->sender('jdanielr61@gmail.com', 'Info Jose Daniel Rodriguez')
                                     ->to($objectSee->email, $objectSee->nombres.' '.$objectSee->apellidos)
@@ -161,8 +160,8 @@ class UsersController extends Controller
                         });
                             $number = $objectSee->telefono;
                             // $pdf =    $this->makePDF(['empresa' => 'Jose Daniel Rodriguez', 'url' => 'https://www.JoseDanielRodriguez.com', 'app' => 'http://me.JoseDanielRodriguez.gt', 'password' => $request->get('password'), 'username' => $objectSee->username, 'codigo' => $objectSee->codigo, 'email' => $objectSee->email, 'name' => $objectSee->nombres.' '.$objectSee->apellidos]);
-                            $message = new whMessage($number, 'Su codigo es '.$objectSee->codigo);
-                            $response = $client->send($message);
+                            // $message = new whMessage($number, $message->embedData(QrCode::format('png')->size(250)->generate($objectSee->codigo), 'QrCode.png', 'image/png'));
+                            // $response = $client->send($message);
                         
 
                          return  Response::json($objectSee, 200);
@@ -190,10 +189,11 @@ class UsersController extends Controller
         return $pdf->stream('download.pdf');
     }
     public function sendEmail(Request $request){
+
+
         $objectSee = Users::whereRaw('id=?',$request->get('id'))->with('roles')->first();
                      if ($objectSee) {
-                        $qr = QrCode::size(250)->generate($objectSee->codigo."dsds");
-                        Mail::send('emails.confirm', ['empresa' => 'Jose Daniel Rodriguez', 'url' => 'https://www.JoseDanielRodriguez.com', 'app' => 'http://me.JoseDanielRodriguez.gt', 'password' => $request->get('password'), 'username' => $objectSee->username, 'codigo' => $objectSee->codigo, 'qr' => $qr, 'email' => $objectSee->email, 'name' => $objectSee->nombres.' '.$objectSee->apellidos,], function (Message $message) use ($objectSee){
+                        Mail::send('emails.confirm', ['empresa' => 'Jose Daniel Rodriguez', 'url' => 'https://www.JoseDanielRodriguez.com', 'app' => 'http://me.JoseDanielRodriguez.gt', 'password' => $request->get('password'), 'username' => $objectSee->username, 'codigo' => $objectSee->codigo,'email' => $objectSee->email, 'name' => $objectSee->nombres.' '.$objectSee->apellidos,], function (Message $message) use ($objectSee){
                             $message->from('jdanielr61@gmail.com', 'Info Jose Daniel Rodriguez')
                                     ->sender('jdanielr61@gmail.com', 'Info Jose Daniel Rodriguez')
                                     ->to($objectSee->email, $objectSee->nombres.' '.$objectSee->apellidos)
