@@ -134,6 +134,7 @@ class UsersController extends Controller
                      $newObject = new Users();
                      $newObject->username = $request->get('username');
                      $newObject->email = $email;
+                     $newObject->password = Hash::make($request->get('password'));
                      $newObject->nombres = $request->get('nombres');
                      $newObject->apellidos = $request->get('apellidos');
                      $newObject->rol = $request->get('rol');
