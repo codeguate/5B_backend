@@ -16,6 +16,7 @@ Route::resource('users', 'UsersController');
 Route::resource('roles', 'RolesController');
 Route::resource('codigos', 'CodigosController');
 
+Route::get('send', "UsersController@sendEmail");
 Route::get('filter/{id}/users/{state}', "UsersController@getThisByFilter");
 Route::get('filter/{id}/codigos/{state}', "CodigosController@getThisByFilter");
 

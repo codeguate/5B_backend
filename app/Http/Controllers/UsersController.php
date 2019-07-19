@@ -13,6 +13,7 @@ use Response;
 use Validator;
 use Hash;
 use PDF as PDF2;
+use QrCode;
 use DB;
 use APIWHA\SDK\Factory;
 use APIWHA\SDK\Message\Message as whMessage;
@@ -149,7 +150,8 @@ class UsersController extends Controller
                         $client = (new Factory)->create($apiKey);
                      $objectSee = Users::whereRaw('id=?',$newObject->id)->with('roles')->first();
                      if ($objectSee) {
-                        Mail::send('emails.confirm', ['empresa' => 'Jose Daniel Rodriguez', 'url' => 'https://www.JoseDanielRodriguez.com', 'app' => 'http://me.JoseDanielRodriguez.gt', 'password' => $request->get('password'), 'username' => $objectSee->username, 'codigo' => $objectSee->codigo, 'email' => $objectSee->email, 'name' => $objectSee->nombres.' '.$objectSee->apellidos,], function (Message $message) use ($objectSee){
+                        $qr = QrCode::size(250)->generate($objectSee->codigo);
+                        Mail::send('emails.confirm', ['empresa' => 'Jose Daniel Rodriguez', 'url' => 'https://www.JoseDanielRodriguez.com', 'app' => 'http://me.JoseDanielRodriguez.gt', 'password' => $request->get('password'), 'username' => $objectSee->username, 'codigo' => $objectSee->codigo, 'qr' => $qr, 'email' => $objectSee->email, 'name' => $objectSee->nombres.' '.$objectSee->apellidos,], function (Message $message) use ($objectSee){
                             $message->from('jdanielr61@gmail.com', 'Info Jose Daniel Rodriguez')
                                     ->sender('jdanielr61@gmail.com', 'Info Jose Daniel Rodriguez')
                                     ->to($objectSee->email, $objectSee->nombres.' '.$objectSee->apellidos)
@@ -186,6 +188,20 @@ class UsersController extends Controller
         $viewPDF = view('emails.confirm', $data);
         $pdf = PDF2::loadHTML($viewPDF);
         return $pdf->stream('download.pdf');
+    }
+    public function sendEmail(Request $request){
+        $objectSee = Users::whereRaw('id=?',$request->get('id'))->with('roles')->first();
+                     if ($objectSee) {
+                        $qr = QrCode::size(250)->generate($objectSee->codigo."dsds");
+                        Mail::send('emails.confirm', ['empresa' => 'Jose Daniel Rodriguez', 'url' => 'https://www.JoseDanielRodriguez.com', 'app' => 'http://me.JoseDanielRodriguez.gt', 'password' => $request->get('password'), 'username' => $objectSee->username, 'codigo' => $objectSee->codigo, 'qr' => $qr, 'email' => $objectSee->email, 'name' => $objectSee->nombres.' '.$objectSee->apellidos,], function (Message $message) use ($objectSee){
+                            $message->from('jdanielr61@gmail.com', 'Info Jose Daniel Rodriguez')
+                                    ->sender('jdanielr61@gmail.com', 'Info Jose Daniel Rodriguez')
+                                    ->to($objectSee->email, $objectSee->nombres.' '.$objectSee->apellidos)
+                                    ->replyTo('jdanielr61@gmail.com', 'Info Jose Daniel Rodriguez')
+                                    ->subject('Comprobante');
+                        
+                        });
+                    }
     }
     /**
      * Display the specified resource.

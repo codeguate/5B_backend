@@ -8987,8 +8987,8 @@
 </head>
 <body>
 <div class="">
-    <div style="position: absolute; margin-top:60%; margin-left:176px;">
-      {!! QrCode::size(150)->generate($codigo) !!}
+    <div style="width:50%;position: absolute; margin-top:60%; margin-left:156px;">
+      {!! $qr !!}
 
     </div>
     <img src="https://5bconectate.com/Asset/img/Invitacion.png" style="height: 100%;" alt="">
