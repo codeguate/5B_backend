@@ -8987,12 +8987,7 @@
 </head>
 <body>
 <div class="">
-    <div style="width:50%;position: absolute; margin-top:60%; margin-left:156px;">
-    {{--  <img src="data:image/png;base64, {!! base64_encode(QrCode::format('png')->size(250)->generate($codigo)) !!} ">  --}}
-    </div>
-    <img src="https://chart.googleapis.com/chart?chs=250x250&cht=qr&chl=sdfsdfasf" style="height: 100%;" alt="">
-    
-
+    <img src="{!! $imagen !!}" style="height: 100%;" alt="">
   </div>
 </body>
 </html>
