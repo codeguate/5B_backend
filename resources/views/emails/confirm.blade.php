@@ -8989,10 +8989,8 @@
 <div class="">
     <div style="width:50%;position: absolute; margin-top:60%; margin-left:156px;">
     {{--  <img src="data:image/png;base64, {!! base64_encode(QrCode::format('png')->size(250)->generate($codigo)) !!} ">  --}}
- 
-  <img src="{!!$message->embedData(QrCode::format('png')->size(250)->generate($codigo), 'QrCode.png', 'image/png')!!}">
     </div>
-    <img src="https://5bconectate.com/Asset/img/Invitacion.png" style="height: 100%;" alt="">
+    <img src="https://chart.googleapis.com/chart?chs=250x250&cht=qr&chl=sdfsdfasf" style="height: 100%;" alt="">
     
 
   </div>

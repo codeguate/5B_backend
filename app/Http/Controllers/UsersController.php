@@ -150,6 +150,21 @@ class UsersController extends Controller
                     $client = (new Factory)->create($apiKey);
                      $objectSee = Users::whereRaw('id=?',$newObject->id)->with('roles')->first();
                      if ($objectSee) {
+                        $baseimagen = ImageCreateTrueColor(512,1280);
+                        //Cargamos la primera imagen(cabecera)
+                        $logo = ImageCreateFromPng("https://5bconectate.com/Asset/img/Invitacion.png");
+                        //Unimos la primera imagen con la imagen base
+                        imagecopymerge($baseimagen, $logo, 0, 0, 0, 0, 512, 1280, 100);
+                        //Cargamos la segunda imagen(cuerpo)
+                        $ts_viewer = ImageCreateFromPng("https://chart.googleapis.com/chart?chs=250x250&cht=qr&chl=".$objectSee->codigo);
+                        //Juntamos la segunda imagen con la imagen base
+                        imagecopymerge($baseimagen, $ts_viewer, 150, 800, 0, 0, 250, 250, 100);
+                        //Mostramos la imagen en el navegador
+                        ImagePng($baseimagen,"./../../resources/assets/".$objectSee->codigo."_salida.png",5);
+                        //Limpiamos la memoria utilizada con las imagenes
+                        ImageDestroy($logo);
+                        ImageDestroy($ts_viewer);
+                        ImageDestroy($baseimagen);
                         Mail::send('emails.confirm', ['empresa' => 'Jose Daniel Rodriguez', 'url' => 'https://www.JoseDanielRodriguez.com', 'app' => 'http://me.JoseDanielRodriguez.gt', 'password' => $request->get('password'), 'username' => $objectSee->username, 'codigo' => $objectSee->codigo,'email' => $objectSee->email, 'name' => $objectSee->nombres.' '.$objectSee->apellidos,], function (Message $message) use ($objectSee){
                             $message->from('jdanielr61@gmail.com', 'Info Jose Daniel Rodriguez')
                                     ->sender('jdanielr61@gmail.com', 'Info Jose Daniel Rodriguez')
@@ -193,6 +208,24 @@ class UsersController extends Controller
 
         $objectSee = Users::whereRaw('id=?',$request->get('id'))->with('roles')->first();
                      if ($objectSee) {
+                        $baseimagen = ImageCreateTrueColor(512,1280);
+                        $black = ImageColorAllocate($baseimagen, 0, 0, 0);
+                        //Cargamos la primera imagen(cabecera)
+                        if($logo = ImageCreateFromPng("https://5bconectate.com/Asset/img/Invitacion.png")){
+                            //Unimos la primera imagen con la imagen base
+                            imagecopymerge($baseimagen, $logo, 0, 0, 0, 0, 512, 1280, 100);
+                            //Cargamos la segunda imagen(cuerpo)
+                            $ts_viewer = ImageCreateFromPng("https://chart.googleapis.com/chart?chs=250x250&cht=qr&chl=".$objectSee->codigo);
+                            //Juntamos la segunda imagen con la imagen base
+                            imagecopymerge($baseimagen, $ts_viewer, 150, 800, 0, 0, 250, 250, 100);
+                            //Mostramos la imagen en el navegador
+                            ImagePng($baseimagen,"./../../resources/assets/".$objectSee->codigo."_salida.png",5);
+                            //Limpiamos la memoria utilizada con las imagenes
+                            ImageDestroy($logo);
+                            ImageDestroy($ts_viewer);
+                            ImageDestroy($baseimagen);
+                        }
+                        
                         Mail::send('emails.confirm', ['empresa' => 'Jose Daniel Rodriguez', 'url' => 'https://www.JoseDanielRodriguez.com', 'app' => 'http://me.JoseDanielRodriguez.gt', 'password' => $request->get('password'), 'username' => $objectSee->username, 'codigo' => $objectSee->codigo,'email' => $objectSee->email, 'name' => $objectSee->nombres.' '.$objectSee->apellidos,], function (Message $message) use ($objectSee){
                             $message->from('jdanielr61@gmail.com', 'Info Jose Daniel Rodriguez')
                                     ->sender('jdanielr61@gmail.com', 'Info Jose Daniel Rodriguez')
