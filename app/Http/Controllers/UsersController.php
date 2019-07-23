@@ -162,9 +162,9 @@ class UsersController extends Controller
                         //Unimos la primera imagen con la imagen base
                         imagecopymerge($baseimagen, $logo, 0, 0, 0, 0, 512, 1280, 100);
                         //Cargamos la segunda imagen(cuerpo)
-                        $ts_viewer = ImageCreateFromPng("https://chart.googleapis.com/chart?chs=250x250&cht=qr&chl=".$objectSee->codigo);
+                        $ts_viewer = ImageCreateFromPng("https://chart.googleapis.com/chart?chs=300x300&cht=qr&chl=https://5bconectate.com/dashboard/verificacion.php?codigo=".$objectSee->codigo);
                         //Juntamos la segunda imagen con la imagen base
-                        imagecopymerge($baseimagen, $ts_viewer, 150, 800, 0, 0, 250, 250, 100);
+                        imagecopymerge($baseimagen, $ts_viewer, 110, 50, 0, 0, 300, 300, 100);
                         //Mostramos la imagen en el navegador
                         ImagePng($baseimagen,"".$objectSee->codigo."_salida.png",5);
                         //Limpiamos la memoria utilizada con las imagenes
@@ -172,17 +172,17 @@ class UsersController extends Controller
                         ImageDestroy($ts_viewer);
                         ImageDestroy($baseimagen);
                         $url = "https://5bconectate.com/backend/public/"."".$objectSee->codigo."_salida.png";
-                        Mail::send('emails.confirm', ['empresa' => 'Jose Daniel Rodriguez', 'url' => 'https://www.JoseDanielRodriguez.com', 'app' => 'http://me.JoseDanielRodriguez.gt', 'password' => $request->get('password'), 'username' => $objectSee->username, 'codigo' => $objectSee->codigo,'email' => $objectSee->email,'imagen' => $url, 'name' => $objectSee->nombres.' '.$objectSee->apellidos,], function (Message $message) use ($objectSee){
-                            $message->from('jdanielr61@gmail.com', 'Info Jose Daniel Rodriguez')
-                                    ->sender('jdanielr61@gmail.com', 'Info Jose Daniel Rodriguez')
+                        Mail::send('emails.confirm', ['empresa' => 'Registro 5B', 'url' => 'https://www.JoseDanielRodriguez.com', 'app' => 'http://me.JoseDanielRodriguez.gt', 'password' => $request->get('password'), 'username' => $objectSee->username, 'codigo' => $objectSee->codigo,'email' => $objectSee->email,'imagen' => $url, 'name' => $objectSee->nombres.' '.$objectSee->apellidos,], function (Message $message) use ($objectSee){
+                            $message->from('registro@5b.com.gt', 'Info Registro 5B')
+                                    ->sender('registro@5b.com.gt', 'Info Registro 5B')
                                     ->to($objectSee->email, $objectSee->nombres.' '.$objectSee->apellidos)
-                                    ->replyTo('jdanielr61@gmail.com', 'Info Jose Daniel Rodriguez')
+                                    ->replyTo('registro@5b.com.gt', 'Info Registro 5B')
                                     ->subject('Comprobante');
                         
                         });
                             $number = $objectSee->telefono;
                             $message = new Image($number, $url);
-                            // $pdf =    $this->makePDF(['empresa' => 'Jose Daniel Rodriguez', 'url' => 'https://www.JoseDanielRodriguez.com', 'app' => 'http://me.JoseDanielRodriguez.gt', 'password' => $request->get('password'), 'username' => $objectSee->username, 'codigo' => $objectSee->codigo, 'email' => $objectSee->email, 'name' => $objectSee->nombres.' '.$objectSee->apellidos]);
+                            // $pdf =    $this->makePDF(['empresa' => 'Registro 5B', 'url' => 'https://www.JoseDanielRodriguez.com', 'app' => 'http://me.JoseDanielRodriguez.gt', 'password' => $request->get('password'), 'username' => $objectSee->username, 'codigo' => $objectSee->codigo, 'email' => $objectSee->email, 'name' => $objectSee->nombres.' '.$objectSee->apellidos]);
                             // $message = new whMessage($number, "data:image/png;base64,".base64_encode(QrCode::format('png')->size(250)->generate($objectSee->codigo))."");
                             $response = $client->send($message);
                         
@@ -228,24 +228,34 @@ class UsersController extends Controller
                         //Unimos la primera imagen con la imagen base
                         imagecopymerge($baseimagen, $logo, 0, 0, 0, 0, 512, 1280, 100);
                         //Cargamos la segunda imagen(cuerpo)
-                        $ts_viewer = ImageCreateFromPng("https://chart.googleapis.com/chart?chs=250x250&cht=qr&chl=".$objectSee->codigo);
+                        $ts_viewer = ImageCreateFromPng("https://chart.googleapis.com/chart?chs=300x300&cht=qr&chl=https://5bconectate.com/dashboard/verificacion.php?codigo=".$objectSee->codigo);
                         //Juntamos la segunda imagen con la imagen base
-                        imagecopymerge($baseimagen, $ts_viewer, 150, 800, 0, 0, 250, 250, 100);
+                        imagecopymerge($baseimagen, $ts_viewer, 110, 50, 0, 0, 300, 300, 100);
                         //Mostramos la imagen en el navegador
                         ImagePng($baseimagen,"".$objectSee->codigo."_salida.png",5);
                         //Limpiamos la memoria utilizada con las imagenes
                         ImageDestroy($logo);
                         ImageDestroy($ts_viewer);
                         ImageDestroy($baseimagen);
-                        $url = "http://localhost/CODE/5B/backend/public/"."".$objectSee->codigo."_salida.png";
-                        Mail::send('emails.confirm', ['empresa' => 'Jose Daniel Rodriguez', 'url' => 'https://www.JoseDanielRodriguez.com', 'app' => 'http://me.JoseDanielRodriguez.gt', 'password' => $request->get('password'), 'username' => $objectSee->username, 'codigo' => $objectSee->codigo,'email' => $objectSee->email,'imagen' => $url, 'name' => $objectSee->nombres.' '.$objectSee->apellidos,], function (Message $message) use ($objectSee){
-                            $message->from('jdanielr61@gmail.com', 'Info Jose Daniel Rodriguez')
-                                    ->sender('jdanielr61@gmail.com', 'Info Jose Daniel Rodriguez')
+                        $url = "https://5bconectate.com/backend/public/"."".$objectSee->codigo."_salida.png";
+                        Mail::send('emails.confirm', ['empresa' => 'Registro 5B', 'url' => 'https://www.JoseDanielRodriguez.com', 'app' => 'http://me.JoseDanielRodriguez.gt', 'password' => $request->get('password'), 'username' => $objectSee->username, 'codigo' => $objectSee->codigo,'email' => $objectSee->email,'imagen' => $url, 'name' => $objectSee->nombres.' '.$objectSee->apellidos,], function (Message $message) use ($objectSee){
+                            $message->from('registro@5b.com.gt', 'Info Registro 5B')
+                                    ->sender('registro@5b.com.gt', 'Info Registro 5B')
                                     ->to($objectSee->email, $objectSee->nombres.' '.$objectSee->apellidos)
-                                    ->replyTo('jdanielr61@gmail.com', 'Info Jose Daniel Rodriguez')
+                                    ->replyTo('registro@5b.com.gt', 'Info Registro 5B')
                                     ->subject('Comprobante');
                         
                         });
+                        $apiKey = 'BT2VFMDLYHTIREKDQCF7';
+                    $client = (new Factory)->create($apiKey);
+                            $number = $objectSee->telefono;
+                            $message = new Image($number, $url);
+                            // $pdf =    $this->makePDF(['empresa' => 'Registro 5B', 'url' => 'https://www.JoseDanielRodriguez.com', 'app' => 'http://me.JoseDanielRodriguez.gt', 'password' => $request->get('password'), 'username' => $objectSee->username, 'codigo' => $objectSee->codigo, 'email' => $objectSee->email, 'name' => $objectSee->nombres.' '.$objectSee->apellidos]);
+                            // $message = new whMessage($number, "data:image/png;base64,".base64_encode(QrCode::format('png')->size(250)->generate($objectSee->codigo))."");
+                            // $response = $client->send($message);
+                        
+
+                            return  Response::json($objectSee, 200);
                     }
     }
     /**
@@ -344,11 +354,11 @@ class UsersController extends Controller
                 $objectUpdate->password = Hash::make($pass);
                 $objectUpdate->state = 21;
                 
-                Mail::send('emails.recovery', ['empresa' => 'Jose Daniel Rodriguez', 'url' => 'https://www.JoseDanielRodriguez.com', 'password' => $pass, 'username' => $objectUpdate->username, 'email' => $objectUpdate->email, 'name' => $objectUpdate->nombres.' '.$objectUpdate->apellidos,], function (Message $message) use ($objectUpdate){
-                    $message->from('jdanielr61@gmail.com', 'Info Jose Daniel Rodriguez')
-                            ->sender('jdanielr61@gmail.com', 'Info Jose Daniel Rodriguez')
+                Mail::send('emails.recovery', ['empresa' => 'Registro 5B', 'url' => 'https://www.JoseDanielRodriguez.com', 'password' => $pass, 'username' => $objectUpdate->username, 'email' => $objectUpdate->email, 'name' => $objectUpdate->nombres.' '.$objectUpdate->apellidos,], function (Message $message) use ($objectUpdate){
+                    $message->from('registro@5b.com.gt', 'Info Registro 5B')
+                            ->sender('registro@5b.com.gt', 'Info Registro 5B')
                             ->to($objectUpdate->email, $objectUpdate->nombres.' '.$objectUpdate->apellidos)
-                            ->replyTo('jdanielr61@gmail.com', 'Info JoseDanielRodriguez')
+                            ->replyTo('registro@5b.com.gt', 'Info JoseDanielRodriguez')
                             ->subject('Contraseña Reestablecida');
                 
                 });
