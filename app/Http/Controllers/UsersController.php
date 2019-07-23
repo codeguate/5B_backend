@@ -150,7 +150,7 @@ class UsersController extends Controller
                     $client = (new Factory)->create($apiKey);
                      $objectSee = Users::whereRaw('id=?',$newObject->id)->with('roles')->first();
                      if ($objectSee) {
-                        $baseimagen = ImageCreateTrueColor(512,1280);
+                        $baseimagen = ImageCreateTrueColor(512,1106);
                         //Cargamos la primera imagen(cabecera)
                         if(file_exists("https://5bconectate.com/Asset/img/Invitacion-min.png")){
                             $logo = ImageCreateFromPng("https://5bconectate.com/Asset/img/Invitacion-min.png");
@@ -160,7 +160,7 @@ class UsersController extends Controller
 
                         }
                         //Unimos la primera imagen con la imagen base
-                        imagecopymerge($baseimagen, $logo, 0, 0, 0, 0, 512, 1280, 100);
+                        imagecopymerge($baseimagen, $logo, 0, 0, 0, 0, 512, 1106, 100);
                         //Cargamos la segunda imagen(cuerpo)
                         $ts_viewer = ImageCreateFromPng("https://chart.googleapis.com/chart?chs=300x300&cht=qr&chl=https://5bconectate.com/dashboard/verificacion.php?codigo=".$objectSee->codigo);
                         //Juntamos la segunda imagen con la imagen base
@@ -216,7 +216,7 @@ class UsersController extends Controller
 
         $objectSee = Users::whereRaw('id=?',$request->get('id'))->with('roles')->first();
                      if ($objectSee) {
-                        $baseimagen = ImageCreateTrueColor(512,1280);
+                        $baseimagen = ImageCreateTrueColor(512,1106);
                         //Cargamos la primera imagen(cabecera)
                         if(file_exists("https://5bconectate.com/Asset/img/Invitacion-min.png")){
                             $logo = ImageCreateFromPng("https://5bconectate.com/Asset/img/Invitacion-min.png");
@@ -226,7 +226,7 @@ class UsersController extends Controller
 
                         }
                         //Unimos la primera imagen con la imagen base
-                        imagecopymerge($baseimagen, $logo, 0, 0, 0, 0, 512, 1280, 100);
+                        imagecopymerge($baseimagen, $logo, 0, 0, 0, 0, 512, 1106, 100);
                         //Cargamos la segunda imagen(cuerpo)
                         $ts_viewer = ImageCreateFromPng("https://chart.googleapis.com/chart?chs=300x300&cht=qr&chl=https://5bconectate.com/dashboard/verificacion.php?codigo=".$objectSee->codigo);
                         //Juntamos la segunda imagen con la imagen base
