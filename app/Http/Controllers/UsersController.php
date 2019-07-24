@@ -146,8 +146,7 @@ class UsersController extends Controller
                      $newObject->dpi = $request->get('dpi', '');
                      $newObject->state = $request->get('state',1);
                      $newObject->save();
-                     $apiKey = 'BT2VFMDLYHTIREKDQCF7';
-                    $client = (new Factory)->create($apiKey);
+                     
                      $objectSee = Users::whereRaw('id=?',$newObject->id)->with('roles')->first();
                      if ($objectSee) {
                         $baseimagen = ImageCreateTrueColor(512,1106);
@@ -165,6 +164,11 @@ class UsersController extends Controller
                         $ts_viewer = ImageCreateFromPng("https://chart.googleapis.com/chart?chs=300x300&cht=qr&chl=https://5bconectate.com/dashboard/verificacion.php?codigo=".$objectSee->codigo);
                         //Juntamos la segunda imagen con la imagen base
                         imagecopymerge($baseimagen, $ts_viewer, 110, 50, 0, 0, 300, 300, 100);
+                        $img = new TextToImage;
+                        $img->createImage(strtoupper($objectSee->nombres.' '.$objectSee->apellidos), 16, 300,60);
+                        $img->saveAsPng($objectSee->nombres.'-'.$objectSee->apellidos.'-name','');
+                        $textImg = ImageCreateFromPng("https://5bconectate.com/backend/public/".$objectSee->nombres."-".$objectSee->apellidos."-name.png");
+                        imagecopymerge($baseimagen, $textImg, 110, 530, 0, 0, 300, 60, 100);
                         //Mostramos la imagen en el navegador
                         ImagePng($baseimagen,"".$objectSee->codigo."_salida.png",5);
                         //Limpiamos la memoria utilizada con las imagenes
@@ -180,12 +184,10 @@ class UsersController extends Controller
                                     ->subject('Comprobante');
                         
                         });
-
-
+                            // $apiKey = 'SX1SLWK6MOYRZHBIGD1Y';
+                            // $client = (new Factory)->create($apiKey);
                             // $number = $objectSee->telefono;
                             // $message = new Image($number, $url);
-                            // // $pdf =    $this->makePDF(['empresa' => 'Registro 5B', 'url' => 'https://www.JoseDanielRodriguez.com', 'app' => 'http://me.JoseDanielRodriguez.gt', 'password' => $request->get('password'), 'username' => $objectSee->username, 'codigo' => $objectSee->codigo, 'email' => $objectSee->email, 'name' => $objectSee->nombres.' '.$objectSee->apellidos]);
-                            // // $message = new whMessage($number, "data:image/png;base64,".base64_encode(QrCode::format('png')->size(250)->generate($objectSee->codigo))."");
                             // $response = $client->send($message);
                         
 
@@ -233,6 +235,11 @@ class UsersController extends Controller
                         $ts_viewer = ImageCreateFromPng("https://chart.googleapis.com/chart?chs=300x300&cht=qr&chl=https://5bconectate.com/dashboard/verificacion.php?codigo=".$objectSee->codigo);
                         //Juntamos la segunda imagen con la imagen base
                         imagecopymerge($baseimagen, $ts_viewer, 110, 50, 0, 0, 300, 300, 100);
+                        $img = new TextToImage;
+                        $img->createImage(strtoupper($objectSee->nombres.' '.$objectSee->apellidos), 16, 300,60);
+                        $img->saveAsPng($objectSee->nombres.'-'.$objectSee->apellidos.'-name','');
+                        $textImg = ImageCreateFromPng("https://5bconectate.com/backend/public/".$objectSee->nombres."-".$objectSee->apellidos."-name.png");
+                        imagecopymerge($baseimagen, $textImg, 110, 530, 0, 0, 300, 60, 100);
                         //Mostramos la imagen en el navegador
                         ImagePng($baseimagen,"".$objectSee->codigo."_salida.png",5);
                         //Limpiamos la memoria utilizada con las imagenes
@@ -256,7 +263,7 @@ class UsersController extends Controller
                             // $message = new whMessage($number, "data:image/png;base64,".base64_encode(QrCode::format('png')->size(250)->generate($objectSee->codigo))."");
                             // $response = $client->send($message);
                         
-
+                            
                             return  Response::json($objectSee, 200);
                     }
     }
