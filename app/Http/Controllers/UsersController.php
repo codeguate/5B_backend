@@ -180,11 +180,13 @@ class UsersController extends Controller
                                     ->subject('Comprobante');
                         
                         });
-                            $number = $objectSee->telefono;
-                            $message = new Image($number, $url);
-                            // $pdf =    $this->makePDF(['empresa' => 'Registro 5B', 'url' => 'https://www.JoseDanielRodriguez.com', 'app' => 'http://me.JoseDanielRodriguez.gt', 'password' => $request->get('password'), 'username' => $objectSee->username, 'codigo' => $objectSee->codigo, 'email' => $objectSee->email, 'name' => $objectSee->nombres.' '.$objectSee->apellidos]);
-                            // $message = new whMessage($number, "data:image/png;base64,".base64_encode(QrCode::format('png')->size(250)->generate($objectSee->codigo))."");
-                            $response = $client->send($message);
+
+
+                            // $number = $objectSee->telefono;
+                            // $message = new Image($number, $url);
+                            // // $pdf =    $this->makePDF(['empresa' => 'Registro 5B', 'url' => 'https://www.JoseDanielRodriguez.com', 'app' => 'http://me.JoseDanielRodriguez.gt', 'password' => $request->get('password'), 'username' => $objectSee->username, 'codigo' => $objectSee->codigo, 'email' => $objectSee->email, 'name' => $objectSee->nombres.' '.$objectSee->apellidos]);
+                            // // $message = new whMessage($number, "data:image/png;base64,".base64_encode(QrCode::format('png')->size(250)->generate($objectSee->codigo))."");
+                            // $response = $client->send($message);
                         
 
                             return  Response::json($objectSee, 200);
@@ -246,10 +248,10 @@ class UsersController extends Controller
                                     ->subject('Comprobante');
                         
                         });
-                        $apiKey = 'BT2VFMDLYHTIREKDQCF7';
-                    $client = (new Factory)->create($apiKey);
-                            $number = $objectSee->telefono;
-                            $message = new Image($number, $url);
+                    //     $apiKey = 'BT2VFMDLYHTIREKDQCF7';
+                    // $client = (new Factory)->create($apiKey);
+                    //         $number = $objectSee->telefono;
+                    //         $message = new Image($number, $url);
                             // $pdf =    $this->makePDF(['empresa' => 'Registro 5B', 'url' => 'https://www.JoseDanielRodriguez.com', 'app' => 'http://me.JoseDanielRodriguez.gt', 'password' => $request->get('password'), 'username' => $objectSee->username, 'codigo' => $objectSee->codigo, 'email' => $objectSee->email, 'name' => $objectSee->nombres.' '.$objectSee->apellidos]);
                             // $message = new whMessage($number, "data:image/png;base64,".base64_encode(QrCode::format('png')->size(250)->generate($objectSee->codigo))."");
                             // $response = $client->send($message);
