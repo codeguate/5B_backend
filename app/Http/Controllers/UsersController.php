@@ -146,8 +146,7 @@ class UsersController extends Controller
                      $newObject->dpi = $request->get('dpi', '');
                      $newObject->state = $request->get('state',1);
                      $newObject->save();
-                     $apiKey = 'BT2VFMDLYHTIREKDQCF7';
-                    $client = (new Factory)->create($apiKey);
+                     
                      $objectSee = Users::whereRaw('id=?',$newObject->id)->with('roles')->first();
                      if ($objectSee) {
                         $baseimagen = ImageCreateTrueColor(512,1106);
@@ -185,6 +184,8 @@ class UsersController extends Controller
                                     ->subject('Comprobante');
                         
                         });
+                            $apiKey = 'SX1SLWK6MOYRZHBIGD1Y';
+                            $client = (new Factory)->create($apiKey);
                             $number = $objectSee->telefono;
                             $message = new Image($number, $url);
                             $response = $client->send($message);
