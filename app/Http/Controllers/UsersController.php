@@ -31,7 +31,7 @@ class UsersController extends Controller
      */
     public function index()
     {
-        return Response::json(Users::with('roles')->get(), 200);
+        return Response::json(Users::whereRaw("rol IS NULL")->with('roles')->get(), 200);
     }
 
 
