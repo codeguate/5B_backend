@@ -131,7 +131,7 @@ class UsersController extends Controller
              $telefono_exists  = Users::whereRaw("telefono = ?", $telefono)->count();
              $dpi = $request->get('dpi');
              $dpi_exists  = Users::whereRaw("dpi = ?", $dpi)->count();
-             if($email_exists == 0 && $user_exists == 0 && $telefono_exists == 0 && $dpi_exists == 0){    
+             if($email_exists == 0 && $telefono_exists == 0 && $dpi_exists == 0){    
                      $newObject = new Users();
                      $newObject->username = $request->get('username');
                      $newObject->email = $email;
