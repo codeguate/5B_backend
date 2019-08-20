@@ -25,6 +25,10 @@ class Users extends Authenticatable
         return $this->hasMany('App\EventosVenta','usuario','id');
     }
 
+    public function codigos(){
+        return $this->hasOne('App\Codigos','asignado','id');
+    }
+
     public function myReferidos(){
         return $this->hasOne('App\Users','id','referido');
     }

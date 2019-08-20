@@ -31,7 +31,7 @@ class UsersController extends Controller
      */
     public function index()
     {
-        return Response::json(Users::whereRaw("rol IS NULL")->with('roles')->get(), 200);
+        return Response::json(Users::whereRaw("rol IS NULL")->with('roles','codigos')->get(), 200);
     }
 
 
@@ -85,7 +85,7 @@ class UsersController extends Controller
 
     public function getUsersByRol($id)
     {
-        return Response::json(Users::whereRaw('rol=?',$id)->with('roles')->get(), 200);
+        return Response::json(Users::whereRaw('rol=?',$id)->with('roles','codigos')->get(), 200);
     }
 
     /**
@@ -147,7 +147,7 @@ class UsersController extends Controller
                      $newObject->state = $request->get('state',1);
                      $newObject->save();
                      
-                     $objectSee = Users::whereRaw('id=?',$newObject->id)->with('roles')->first();
+                     $objectSee = Users::whereRaw('id=?',$newObject->id)->with('roles','codigos')->first();
                      if ($objectSee) {
                         $baseimagen = ImageCreateTrueColor(512,1106);
                         //Cargamos la primera imagen(cabecera)
@@ -218,7 +218,7 @@ class UsersController extends Controller
     public function sendEmail(Request $request){
 
 
-        $objectSee = Users::whereRaw('id=?',$request->get('id'))->with('roles')->first();
+        $objectSee = Users::whereRaw('id=?',$request->get('id'))->with('roles','codigos')->first();
                      if ($objectSee) {
                         $baseimagen = ImageCreateTrueColor(512,1106);
                         //Cargamos la primera imagen(cabecera)
@@ -275,7 +275,7 @@ class UsersController extends Controller
      */
     public function show($id)
     {
-        $objectSee = Users::whereRaw('id=?',$id)->with('roles')->first();
+        $objectSee = Users::whereRaw('id=?',$id)->with('roles','codigos')->first();
         if ($objectSee) {
             return Response::json($objectSee, 200);
         }
