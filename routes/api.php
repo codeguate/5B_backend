@@ -22,7 +22,7 @@ Route::get('filter/{id}/codigos/{state}', "CodigosController@getThisByFilter");
 
 Route::get('rol/{id}/users', "Users@getUsersByRol");
 
-Route::put('check/codigo/{id}', 'CodigosController@marcar');
+Route::get('check/codigo/{id}', 'CodigosController@marcar');
 Route::post('users/password/reset', 'UsersController@recoveryPassword');
 Route::post('users/{id}/changepassword', "UsersController@changePassword");
 
